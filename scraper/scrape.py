@@ -17,6 +17,7 @@ from typing import Dict, List, Optional
 
 import requests
 from bs4 import BeautifulSoup
+import urllib3
 
 
 LEAGUE_URL = "https://www.playfootball.net/venues/islington-market-road/players-lounge/3359/15144/186"
@@ -40,7 +41,10 @@ def fetch_page(url: str) -> BeautifulSoup:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
-    response = requests.get(url, headers=headers, timeout=30)
+    # Disable SSL verification warnings (for local development)
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    response = requests.get(url, headers=headers, timeout=30, verify=False)
     response.raise_for_status()
     return BeautifulSoup(response.content, "lxml")
 
