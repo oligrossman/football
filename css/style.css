@@ -1,194 +1,347 @@
-/* Modern dark theme for football dashboard */
+/* ======================================================
+   Players Lounge — League Dashboard
+   Modern dark theme, broadcast aesthetic
+   ====================================================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* --- Reset & Variables --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --bg-primary: #0a0e27;
-    --bg-secondary: #141b2d;
-    --bg-tertiary: #1e2742;
-    --text-primary: #ffffff;
-    --text-secondary: #b8c5d6;
-    --accent: #00d4ff;
-    --accent-hover: #00b8e6;
-    --border: #2a3441;
-    --success: #00ff88;
-    --warning: #ffaa00;
-    --error: #ff4444;
+    --bg-body:      #070b1a;
+    --bg-card:      #0f1629;
+    --bg-card-alt:  #151d33;
+    --bg-hover:     #1a2440;
+    --bg-input:     #0c1121;
+    --text:         #e8ecf1;
+    --text-dim:     #7b8ba3;
+    --accent:       #00cfff;
+    --accent-glow:  rgba(0, 207, 255, .15);
+    --green:        #34d399;
+    --amber:        #fbbf24;
+    --red:          #f87171;
+    --border:       #1e293b;
+    --radius:       10px;
+    --shadow:       0 2px 24px rgba(0,0,0,.45);
 }
 
+/* --- Base --- */
+html { font-size: 14px; }
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-body);
+    color: var(--text);
     min-height: 100vh;
-    padding: 20px;
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
+    padding: 24px 20px 60px;
 }
 
+/* --- Cards --- */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* --- Header --- */
 header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 30px 20px;
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 28px 32px 22px;
+    margin-bottom: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    background: linear-gradient(135deg, var(--accent), var(--green));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .venue {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
+    font-size: .95rem;
+    color: var(--text-dim);
+    margin-top: 2px;
 }
 
 .last-updated {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    opacity: 0.8;
+    font-size: .8rem;
+    color: var(--text-dim);
+    white-space: nowrap;
 }
 
-main {
+/* --- Main --- */
+main { display: flex; flex-direction: column; gap: 20px; }
+
+/* ==============================
+   Team Filter Bar
+   ============================== */
+.team-filter-bar { padding: 16px 24px; }
+
+.filter-header {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
-.chart-container {
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+.filter-header h3 {
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-dim);
 }
 
-#points-chart {
-    width: 100%;
-    height: 500px;
+.btn-clear {
     background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: .75rem;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.btn-clear:hover { color: var(--accent); border-color: var(--accent); }
+
+.team-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.table-container {
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+.team-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all .25s ease;
+    user-select: none;
+    background: var(--bg-card-alt);
+    color: var(--text-dim);
 }
 
-.table-container h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+.team-pill .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.team-pill:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+.team-pill.active {
+    color: #fff;
+    border-color: currentColor;
+    box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ==============================
+   Chart Section
+   ============================== */
+.chart-section { padding: 20px 24px 12px; }
+
+.chart-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+}
+
+.chart-toggle {
+    display: inline-flex;
+    background: var(--bg-body);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.toggle-btn {
+    padding: 7px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    background: transparent;
+    color: var(--text-dim);
+}
+
+.toggle-btn:hover { color: var(--text); }
+
+.toggle-btn.active {
+    background: var(--accent);
+    color: #000;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+#main-chart {
+    width: 100%;
+    height: 520px;
+}
+
+/* ==============================
+   Bottom Grid — Table + Fixtures
+   ============================== */
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.league-table-section,
+.fixtures-section { padding: 20px 24px; }
+
+.league-table-section h2,
+.fixtures-section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--accent);
+    margin-bottom: 4px;
 }
 
-.table-wrapper {
-    overflow-x: auto;
+.gw-date {
+    font-size: .8rem;
+    color: var(--text-dim);
+    margin-bottom: 14px;
 }
+
+.league-table-section .table-wrapper { margin-top: 14px; }
+
+/* ==============================
+   Tables (shared)
+   ============================== */
+.table-wrapper { overflow-x: auto; }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: var(--bg-tertiary);
-    border-radius: 8px;
-    overflow: hidden;
 }
 
-thead {
-    background: var(--bg-primary);
-}
-
-th {
-    padding: 15px;
-    text-align: left;
-    font-weight: 600;
-    color: var(--accent);
+thead th {
+    padding: 10px 8px;
+    font-size: .7rem;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    letter-spacing: .06em;
+    color: var(--text-dim);
     border-bottom: 2px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
 }
 
-td {
-    padding: 15px;
+tbody td {
+    padding: 9px 8px;
     border-bottom: 1px solid var(--border);
-    color: var(--text-primary);
+    font-size: .85rem;
+    vertical-align: middle;
 }
 
-tbody tr {
-    transition: background-color 0.2s ease;
-}
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: var(--bg-hover); }
+tbody tr:last-child td { border-bottom: none; }
 
-tbody tr:hover {
-    background: var(--bg-secondary);
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
+.col-pos { width: 30px; text-align: center; }
+.col-num { width: 36px; text-align: center; }
+.col-pts { font-weight: 700; color: var(--accent) !important; }
+.col-team { min-width: 110px; }
+.col-score { text-align: center; white-space: nowrap; }
+.col-form { width: 100px; white-space: nowrap; }
 
 .no-data {
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--text-dim);
+    padding: 30px 10px !important;
     font-style: italic;
-    padding: 40px !important;
 }
 
-.team-name {
-    font-weight: 500;
-}
+/* ---- League Table specifics ---- */
+#league-table tbody td.pos-cell { text-align: center; font-weight: 700; color: var(--text-dim); }
+#league-table tbody td.team-cell { font-weight: 600; }
+#league-table tbody td.pts-cell { font-weight: 800; color: var(--accent); text-align: center; }
+#league-table tbody td.num-cell { text-align: center; color: var(--text-dim); }
 
-.score {
-    font-weight: 700;
-    font-size: 1.1rem;
+#league-table tbody tr { cursor: pointer; }
+#league-table tbody tr.selected-row {
+    background: var(--accent-glow) !important;
+}
+#league-table tbody tr.selected-row td.team-cell { color: #fff; }
+
+/* Form dots */
+.form-dots { display: flex; gap: 4px; justify-content: center; }
+.form-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .65rem;
+    font-weight: 800;
+    color: #000;
+    flex-shrink: 0;
+}
+.form-dot.W { background: var(--green); }
+.form-dot.D { background: var(--amber); }
+.form-dot.L { background: var(--red); }
+
+/* ---- Fixtures Table specifics ---- */
+#fixtures-table .home-cell { text-align: right; font-weight: 600; padding-right: 12px; }
+#fixtures-table .away-cell { text-align: left; font-weight: 600; padding-left: 12px; }
+#fixtures-table .score-cell {
+    text-align: center;
+    font-weight: 800;
+    font-size: 1rem;
     color: var(--accent);
+    letter-spacing: .04em;
+    min-width: 60px;
 }
 
-.points {
-    font-weight: 600;
-    color: var(--success);
+#fixtures-table tbody tr.selected-fixture {
+    background: var(--accent-glow) !important;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    #points-chart {
-        height: 400px;
-    }
-
-    th, td {
-        padding: 10px;
-        font-size: 0.9rem;
-    }
+/* ==============================
+   Responsive
+   ============================== */
+@media (max-width: 960px) {
+    .bottom-grid { grid-template-columns: 1fr; }
 }
 
-/* Chart styling overrides for dark theme */
-.plotly .modebar {
-    background: var(--bg-tertiary) !important;
+@media (max-width: 640px) {
+    html { font-size: 13px; }
+    header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    h1 { font-size: 1.6rem; }
+    #main-chart { height: 380px; }
+    .team-pill { font-size: .75rem; padding: 5px 10px; }
 }
 
-.plotly .modebar-btn {
-    color: var(--text-primary) !important;
-}
-
-.plotly .modebar-btn:hover {
-    background: var(--bg-secondary) !important;
-}
+/* ==============================
+   Plotly overrides
+   ============================== */
+.js-plotly-plot .plotly .modebar { background: transparent !important; }
+.js-plotly-plot .plotly .modebar-btn { color: var(--text-dim) !important; }
+.js-plotly-plot .plotly .modebar-btn:hover { color: var(--accent) !important; }

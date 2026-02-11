@@ -3,42 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football League Dashboard</title>
+    <title>Players Lounge — League Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
-            <h1 id="league-name">League Dashboard</h1>
-            <p class="venue" id="venue"></p>
-            <p class="last-updated">Last updated: <span id="last-updated"></span></p>
+            <div class="header-content">
+                <h1 id="league-name">League Dashboard</h1>
+                <p class="venue" id="venue"></p>
+            </div>
+            <p class="last-updated">Data as of <span id="last-updated"></span></p>
         </header>
 
         <main>
-            <div class="chart-container">
-                <div id="points-chart"></div>
-            </div>
-
-            <div class="table-container">
-                <h2>Gameweek <span id="selected-gameweek">-</span> Fixtures</h2>
-                <div class="table-wrapper">
-                    <table id="fixtures-table">
-                        <thead>
-                            <tr>
-                                <th>Home Team</th>
-                                <th>Score</th>
-                                <th>Away Team</th>
-                                <th>Points</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fixtures-tbody">
-                            <tr>
-                                <td colspan="4" class="no-data">Select a gameweek to view fixtures</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Team Filter Bar -->
+            <section class="team-filter-bar card" id="team-filter-bar">
+                <div class="filter-header">
+                    <h3>Teams</h3>
+                    <button class="btn-clear" id="btn-clear-filter" title="Clear selection">Clear</button>
                 </div>
+                <div class="team-pills" id="team-pills">
+                    <!-- Filled dynamically -->
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="chart-section card">
+                <div class="chart-controls">
+                    <div class="chart-toggle" id="chart-toggle">
+                        <button class="toggle-btn active" data-mode="points">Cumulative Points</button>
+                        <button class="toggle-btn" data-mode="position">League Position</button>
+                    </div>
+                </div>
+                <div id="main-chart"></div>
+            </section>
+
+            <!-- Bottom Grid: League Table + Gameweek Fixtures -->
+            <div class="bottom-grid">
+                <!-- League Table -->
+                <section class="league-table-section card">
+                    <h2>League Table</h2>
+                    <div class="table-wrapper">
+                        <table id="league-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-pos">#</th>
+                                    <th class="col-team">Team</th>
+                                    <th class="col-num">P</th>
+                                    <th class="col-num">W</th>
+                                    <th class="col-num">D</th>
+                                    <th class="col-num">L</th>
+                                    <th class="col-num">GF</th>
+                                    <th class="col-num">GA</th>
+                                    <th class="col-num">GD</th>
+                                    <th class="col-num col-pts">Pts</th>
+                                    <th class="col-form">Form</th>
+                                </tr>
+                            </thead>
+                            <tbody id="league-tbody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Gameweek Fixtures -->
+                <section class="fixtures-section card">
+                    <h2>Gameweek <span id="selected-gameweek">-</span></h2>
+                    <p class="gw-date" id="gw-date"></p>
+                    <div class="table-wrapper">
+                        <table id="fixtures-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-team">Home</th>
+                                    <th class="col-score">Score</th>
+                                    <th class="col-team">Away</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fixtures-tbody">
+                                <tr>
+                                    <td colspan="3" class="no-data">Hover on the chart to view fixtures</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
