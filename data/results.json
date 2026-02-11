@@ -1,0 +1,67 @@
+{
+  "league_name": "Players Lounge",
+  "venue": "Islington Market Road",
+  "last_updated": "2026-02-11 12:00:00",
+  "teams": [
+    "Team A",
+    "Team B",
+    "Team C",
+    "Team D"
+  ],
+  "gameweeks": [
+    {
+      "week": 1,
+      "date": "2025-09-15",
+      "fixtures": [
+        {
+          "home": "Team A",
+          "away": "Team B",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Team C",
+          "away": "Team D",
+          "home_score": 2,
+          "away_score": 2
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "date": "2025-09-22",
+      "fixtures": [
+        {
+          "home": "Team A",
+          "away": "Team C",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Team B",
+          "away": "Team D",
+          "home_score": 2,
+          "away_score": 3
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "date": "2025-09-29",
+      "fixtures": [
+        {
+          "home": "Team A",
+          "away": "Team D",
+          "home_score": 4,
+          "away_score": 2
+        },
+        {
+          "home": "Team B",
+          "away": "Team C",
+          "home_score": 1,
+          "away_score": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football League Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="league-name">League Dashboard</h1>
+            <p class="venue" id="venue"></p>
+            <p class="last-updated">Last updated: <span id="last-updated"></span></p>
+        </header>
+
+        <main>
+            <div class="chart-container">
+                <div id="points-chart"></div>
+            </div>
+
+            <div class="table-container">
+                <h2>Gameweek <span id="selected-gameweek">-</span> Fixtures</h2>
+                <div class="table-wrapper">
+                    <table id="fixtures-table">
+                        <thead>
+                            <tr>
+                                <th>Home Team</th>
+                                <th>Score</th>
+                                <th>Away Team</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fixtures-tbody">
+                            <tr>
+                                <td colspan="4" class="no-data">Select a gameweek to view fixtures</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
