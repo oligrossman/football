@@ -230,6 +230,23 @@ tbody tr:last-child td { border-bottom: none; }
     transform: scale(1.15);
 }
 
+/* ---- Gameweek Navigation ---- */
+.gw-nav {
+    display: flex; align-items: center; gap: 12px;
+}
+.gw-nav h2 { margin-bottom: 0; white-space: nowrap; }
+
+.gw-nav-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg-card-alt);
+    color: var(--text-dim); font-size: 1.2rem; font-weight: 700;
+    cursor: pointer; transition: all .2s; line-height: 1;
+    user-select: none; flex-shrink: 0;
+}
+.gw-nav-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); background: var(--bg-hover); }
+.gw-nav-btn:disabled { opacity: .3; cursor: not-allowed; }
+
 /* ---- Fixtures Table specifics ---- */
 #fixtures-table .home-cell { text-align: right; font-weight: 600; padding-right: 12px; }
 #fixtures-table .away-cell { text-align: left; font-weight: 600; padding-left: 12px; }
@@ -255,6 +272,39 @@ tbody tr:last-child td { border-bottom: none; }
     background: rgba(251, 191, 36, .06);
 }
 .pts-tag { color: var(--text-dim); margin-left: 4px; }
+
+/* ---- KO Heatmap ---- */
+.ko-heatmap-section { padding: 20px 24px; }
+.ko-heatmap-section h2 {
+    font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;
+}
+
+#ko-heatmap-table { border-collapse: separate; border-spacing: 0; }
+
+#ko-heatmap-table thead th {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--bg-card); padding: 8px 6px;
+}
+.col-ko {
+    width: 64px; text-align: center; font-size: .72rem; white-space: nowrap;
+}
+.ko-overall { border-left: 2px solid var(--border); font-weight: 700; }
+
+#ko-heatmap-table tbody td.pos-cell { text-align: center; font-weight: 700; color: var(--text-dim); width: 30px; }
+#ko-heatmap-table tbody td.team-cell { font-weight: 600; min-width: 110px; white-space: nowrap; }
+
+.ko-cell {
+    text-align: center; font-weight: 700; font-size: .88rem;
+    color: var(--text); padding: 8px 4px; border-radius: 4px;
+    cursor: default; transition: transform .15s;
+}
+.ko-cell:hover { transform: scale(1.08); z-index: 1; position: relative; }
+.ko-games { font-weight: 400; font-size: .65rem; color: var(--text-dim); }
+.ko-empty { color: var(--text-dim); font-weight: 400; font-size: .78rem; }
+.ko-overall-cell { border-left: 2px solid var(--border); font-weight: 800; }
+
+#ko-heatmap-table tbody tr { cursor: pointer; }
+#ko-heatmap-table tbody tr.selected-row { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 /* ---- Predictions Header + Tooltip ---- */
 .predictions-section { padding: 20px 24px; }
@@ -397,6 +447,13 @@ tbody tr:last-child td { border-bottom: none; }
     #fixtures-table .score-cell { font-size: .88rem; min-width: 50px; }
     .ko-label { font-size: .6rem; }
     .staggs-badge { font-size: .6rem; }
+
+    /* KO Heatmap */
+    .ko-heatmap-section { padding: 12px 10px; }
+    .col-ko { width: 46px; font-size: .6rem; }
+    .ko-cell { font-size: .76rem; padding: 6px 2px; }
+    .ko-games { font-size: .55rem; }
+    #ko-heatmap-table tbody td.team-cell { font-size: .72rem; min-width: 70px; }
 
     /* Predictions table */
     #predictions-table .home-cell,

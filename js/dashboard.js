@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderLeagueTable();
         showGameweekTable(data.gameweeks[data.gameweeks.length - 1].week);
         renderPredictions();
+        renderKOHeatmap();
         renderUpcoming();
         wireEvents();
     } catch (e) {
@@ -440,9 +441,7 @@ function renderLeagueTable() {
 
         const form = row.results.slice(-5);
         const formHTML = form.map(f => {
-            const cls = `form-dot ${f.r}` + (f.lateGetafe ? ' late-staggs' : '');
-            const tip = f.lateGetafe ? ' title="Too late for Staggs"' : '';
-            return `<span class="${cls}"${tip}>${f.r}</span>`;
+            return `<span class="form-dot ${f.r}">${f.r}</span>`;
         }).join('');
 
         tr.innerHTML = `
@@ -484,6 +483,13 @@ function showGameweekTable(weekNum) {
     selectedGameweek = weekNum;
     document.getElementById('selected-gameweek').textContent = weekNum;
     document.getElementById('gw-date').textContent = gw.date ? fmtDate(gw.date) : '';
+
+    // Update nav button states
+    const gwNums = data.gameweeks.map(g => g.week);
+    const prevBtn = document.getElementById('gw-prev');
+    const nextBtn = document.getElementById('gw-next');
+    prevBtn.disabled = weekNum <= Math.min(...gwNums);
+    nextBtn.disabled = weekNum >= Math.max(...gwNums);
 
     const tbody = document.getElementById('fixtures-tbody');
     tbody.innerHTML = '';
@@ -604,6 +610,114 @@ function renderUpcoming() {
 }
 
 /* ============================================================
+   Avg Points by Kick-off Time Heatmap
+   ============================================================ */
+function renderKOHeatmap() {
+    // Gather {team → {time → {pts, games}}}
+    const map = {};
+    const allTimes = new Set();
+    data.teams.forEach(t => { map[t] = {}; });
+
+    data.gameweeks.forEach(gw => {
+        gw.fixtures.forEach((f, fIdx) => {
+            const time = getFixtureTime(f, fIdx);
+            if (!time) return;
+            allTimes.add(time);
+
+            const hp = pts(f.home_score, f.away_score);
+            const ap = pts(f.away_score, f.home_score);
+
+            [{ team: f.home, p: hp }, { team: f.away, p: ap }].forEach(({ team, p }) => {
+                if (!map[team][time]) map[team][time] = { pts: 0, games: 0 };
+                map[team][time].pts += p;
+                map[team][time].games += 1;
+            });
+        });
+    });
+
+    const times = [...allTimes].sort();
+    const standings = getStandings();
+
+    // Build header
+    const thead = document.getElementById('ko-heatmap-thead');
+    thead.innerHTML = `<tr>
+        <th class="col-pos">#</th>
+        <th class="col-team">Team</th>
+        ${times.map(t => `<th class="col-ko">${t}</th>`).join('')}
+        <th class="col-ko ko-overall">Overall</th>
+    </tr>`;
+
+    // Compute all averages for colour scaling
+    const allAvgs = [];
+    standings.forEach(row => {
+        times.forEach(t => {
+            const d = map[row.team][t];
+            if (d && d.games > 0) allAvgs.push(d.pts / d.games);
+        });
+    });
+    const minAvg = Math.min(...allAvgs, 0);
+    const maxAvg = Math.max(...allAvgs, 3);
+
+    // Build rows
+    const tbody = document.getElementById('ko-heatmap-tbody');
+    tbody.innerHTML = '';
+
+    standings.forEach((row, idx) => {
+        const tr = document.createElement('tr');
+        tr.dataset.team = row.team;
+        if (row.team === selectedTeam) tr.classList.add('selected-row');
+        tr.addEventListener('click', () => toggleSelection(row.team));
+
+        const overall = row.p > 0 ? (row.pts / row.p) : 0;
+
+        let cells = `
+            <td class="pos-cell">${idx + 1}</td>
+            <td class="team-cell">
+                <span class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${teamColors[row.team]};margin-right:6px;vertical-align:middle"></span>
+                ${row.team}
+            </td>`;
+
+        times.forEach(t => {
+            const d = map[row.team][t];
+            if (d && d.games > 0) {
+                const avg = d.pts / d.games;
+                const bg = heatColor(avg, minAvg, maxAvg);
+                cells += `<td class="ko-cell" style="background:${bg}" title="${row.team} at ${t}: ${avg.toFixed(2)} PPG (${d.games} game${d.games > 1 ? 's' : ''})">
+                    ${avg.toFixed(1)} <small class="ko-games">(${d.games})</small>
+                </td>`;
+            } else {
+                cells += `<td class="ko-cell ko-empty">–</td>`;
+            }
+        });
+
+        const overallBg = heatColor(overall, minAvg, maxAvg);
+        cells += `<td class="ko-cell ko-overall-cell" style="background:${overallBg}">${overall.toFixed(1)}</td>`;
+
+        tr.innerHTML = cells;
+        tbody.appendChild(tr);
+    });
+}
+
+/** Map a value between min–max to a red→amber→green gradient */
+function heatColor(val, min, max) {
+    const t = max > min ? (val - min) / (max - min) : 0.5;
+    // 0 → red, 0.5 → amber, 1 → green
+    let r, g, b;
+    if (t < 0.5) {
+        const u = t / 0.5;
+        r = 248 + (251 - 248) * u;
+        g = 113 + (191 - 113) * u;
+        b = 113 + (36 - 113) * u;
+    } else {
+        const u = (t - 0.5) / 0.5;
+        r = 251 + (52 - 251) * u;
+        g = 191 + (211 - 191) * u;
+        b = 36 + (153 - 36) * u;
+    }
+    return `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b)},0.22)`;
+}
+
+/* ============================================================
    Helpers
    ============================================================ */
 function fmtDate(s) {
@@ -620,9 +734,16 @@ function toggleSelection(team) {
     selectedTeam = selectedTeam === team ? null : team;
     refreshPillStates();
     refreshLeagueTableHighlight();
+    refreshKOHeatmapHighlight();
     renderChart();
     if (selectedGameweek) showGameweekTable(selectedGameweek);
     renderPredictions();
+}
+
+function refreshKOHeatmapHighlight() {
+    document.querySelectorAll('#ko-heatmap-tbody tr').forEach(tr => {
+        tr.classList.toggle('selected-row', tr.dataset.team === selectedTeam);
+    });
 }
 
 /* ============================================================
@@ -646,11 +767,26 @@ function wireEvents() {
         renderChart();
     });
 
+    // Gameweek navigation
+    document.getElementById('gw-prev').addEventListener('click', () => {
+        if (!selectedGameweek) return;
+        const gwNums = data.gameweeks.map(g => g.week).sort((a, b) => a - b);
+        const idx = gwNums.indexOf(selectedGameweek);
+        if (idx > 0) showGameweekTable(gwNums[idx - 1]);
+    });
+    document.getElementById('gw-next').addEventListener('click', () => {
+        if (!selectedGameweek) return;
+        const gwNums = data.gameweeks.map(g => g.week).sort((a, b) => a - b);
+        const idx = gwNums.indexOf(selectedGameweek);
+        if (idx < gwNums.length - 1) showGameweekTable(gwNums[idx + 1]);
+    });
+
     // Clear filter
     document.getElementById('btn-clear-filter').addEventListener('click', () => {
         selectedTeam = null;
         refreshPillStates();
         refreshLeagueTableHighlight();
+        refreshKOHeatmapHighlight();
         renderChart();
         if (selectedGameweek) showGameweekTable(selectedGameweek);
         renderPredictions();
