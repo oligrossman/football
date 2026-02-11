@@ -78,31 +78,48 @@ h1 {
 main { display: flex; flex-direction: column; gap: 20px; }
 
 /* ==============================
-   Team Filter Bar
+   Chart + Team Sidebar Row
    ============================== */
-.team-filter-bar { padding: 16px 24px; }
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* ==============================
+   Team Sidebar (RHS of chart)
+   ============================== */
+.team-sidebar {
+    padding: 16px 14px;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+}
 
 .filter-header {
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 12px;
 }
-.filter-header h3 { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); }
+.filter-header h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); }
 
 .btn-clear {
     background: transparent; border: 1px solid var(--border);
-    color: var(--text-dim); font-size: .75rem; padding: 4px 12px;
+    color: var(--text-dim); font-size: .7rem; padding: 3px 10px;
     border-radius: 6px; cursor: pointer; transition: all .2s;
 }
 .btn-clear:hover { color: var(--accent); border-color: var(--accent); }
 
-.team-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.team-pills { display: flex; flex-direction: column; gap: 6px; }
 
 .team-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 20px;
-    font-size: .82rem; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border-radius: 8px;
+    font-size: .8rem; font-weight: 600; cursor: pointer;
     border: 2px solid transparent; transition: all .25s ease;
     user-select: none; background: var(--bg-card-alt); color: var(--text-dim);
+    white-space: nowrap;
 }
 .team-pill .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .team-pill:hover { background: var(--bg-hover); color: var(--text); }
@@ -111,7 +128,7 @@ main { display: flex; flex-direction: column; gap: 20px; }
 /* ==============================
    Chart Section
    ============================== */
-.chart-section { padding: 20px 24px 12px; }
+.chart-section { padding: 20px 24px 12px; min-width: 0; }
 
 .chart-controls {
     display: flex; align-items: center; justify-content: space-between;
@@ -214,8 +231,56 @@ tbody tr:last-child td { border-bottom: none; }
 }
 #fixtures-table tbody tr.selected-fixture { background: var(--accent-glow) !important; }
 
-/* ---- Predictions Table ---- */
+/* ---- Predictions Header + Tooltip ---- */
 .predictions-section { padding: 20px 24px; }
+
+.pred-header {
+    display: flex; align-items: center; gap: 10px; position: relative;
+    margin-bottom: 4px;
+}
+.pred-header h2 { margin-bottom: 0; }
+
+.info-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--bg-card-alt); border: 1px solid var(--border);
+    color: var(--accent); font-size: .82rem; font-weight: 700;
+    cursor: pointer; transition: all .2s; flex-shrink: 0;
+    line-height: 1;
+}
+.info-icon:hover, .info-icon:focus { background: var(--accent); color: #000; }
+
+.model-tooltip {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    z-index: 100;
+    width: 400px;
+    max-width: 90vw;
+    padding: 18px 20px;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 207, 255, .18);
+    font-size: .82rem;
+    line-height: 1.65;
+    color: var(--text);
+}
+.model-tooltip.visible { display: block; }
+.model-tooltip strong { color: var(--accent); font-size: .9rem; display: block; margin-bottom: 8px; }
+.model-tooltip p { margin-bottom: 6px; color: var(--text-dim); }
+.model-tooltip .formula {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    background: var(--bg-body);
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--amber);
+    font-size: .78rem;
+    margin: 6px 0;
+}
+.model-tooltip em { color: var(--green); font-style: normal; font-weight: 600; }
 #predictions-table .home-cell { text-align: right; font-weight: 600; padding-right: 12px; }
 #predictions-table .away-cell { text-align: left; font-weight: 600; padding-left: 12px; }
 #predictions-table .score-cell {
@@ -246,14 +311,27 @@ tbody tr:last-child td { border-bottom: none; }
 /* ==============================
    Responsive
    ============================== */
-@media (max-width: 960px) { .bottom-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) {
+    .chart-row { grid-template-columns: 1fr 170px; }
+    .team-pill { font-size: .75rem; padding: 5px 10px; }
+}
+
+@media (max-width: 960px) {
+    .bottom-grid { grid-template-columns: 1fr; }
+    .chart-row { grid-template-columns: 1fr; }
+    .team-sidebar {
+        position: static;
+        max-height: none;
+    }
+    .team-pills { flex-direction: row; flex-wrap: wrap; }
+}
 
 @media (max-width: 640px) {
     html { font-size: 13px; }
     header { flex-direction: column; align-items: flex-start; gap: 6px; }
     h1 { font-size: 1.6rem; }
     #main-chart { height: 380px; }
-    .team-pill { font-size: .75rem; padding: 5px 10px; }
+    .team-pill { font-size: .72rem; padding: 5px 8px; }
     .chart-controls { flex-direction: column; gap: 8px; align-items: flex-start; }
 }
 

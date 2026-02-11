@@ -354,16 +354,9 @@ function renderChart() {
         plot_bgcolor: 'rgba(0,0,0,0)',
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#e8ecf1', size: 11 },
-        showlegend: true,
-        legend: {
-            x: 1.02, y: 1, xanchor: 'left',
-            font: { size: 10, color: '#b8c5d6' },
-            bgcolor: 'rgba(15,22,41,0.85)',
-            bordercolor: '#1e293b', borderwidth: 1,
-            tracegroupgap: 2,
-        },
+        showlegend: false,
         hovermode: 'closest',
-        margin: { l: 48, r: 140, t: 10, b: 44 },
+        margin: { l: 48, r: 20, t: 10, b: 44 },
     };
 
     const config = { displayModeBar: false, responsive: true };
@@ -623,4 +616,22 @@ function wireEvents() {
         if (selectedGameweek) showGameweekTable(selectedGameweek);
         renderPredictions();
     });
+
+    // Model info tooltip
+    const infoTrigger = document.getElementById('model-info-trigger');
+    const tooltip = document.getElementById('model-tooltip');
+    if (infoTrigger && tooltip) {
+        infoTrigger.addEventListener('click', e => {
+            e.stopPropagation();
+            tooltip.classList.toggle('visible');
+        });
+        document.addEventListener('click', e => {
+            if (!tooltip.contains(e.target) && e.target !== infoTrigger) {
+                tooltip.classList.remove('visible');
+            }
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') tooltip.classList.remove('visible');
+        });
+    }
 }

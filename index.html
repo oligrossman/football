@@ -19,29 +19,32 @@
         </header>
 
         <main>
-            <!-- Team Filter Bar -->
-            <section class="team-filter-bar card" id="team-filter-bar">
-                <div class="filter-header">
-                    <h3>Teams</h3>
-                    <button class="btn-clear" id="btn-clear-filter" title="Clear selection">Clear</button>
-                </div>
-                <div class="team-pills" id="team-pills"></div>
-            </section>
-
-            <!-- Chart Section -->
-            <section class="chart-section card">
-                <div class="chart-controls">
-                    <div class="chart-toggle" id="chart-toggle">
-                        <button class="toggle-btn active" data-mode="points">Cumulative Points</button>
-                        <button class="toggle-btn" data-mode="position">League Position</button>
+            <!-- Chart + Team Sidebar -->
+            <div class="chart-row">
+                <!-- Chart Section -->
+                <section class="chart-section card">
+                    <div class="chart-controls">
+                        <div class="chart-toggle" id="chart-toggle">
+                            <button class="toggle-btn active" data-mode="points">Cumulative Points</button>
+                            <button class="toggle-btn" data-mode="position">League Position</button>
+                        </div>
+                        <label class="proj-toggle">
+                            <input type="checkbox" id="show-projections" checked>
+                            <span>Show projections</span>
+                        </label>
                     </div>
-                    <label class="proj-toggle">
-                        <input type="checkbox" id="show-projections" checked>
-                        <span>Show projections</span>
-                    </label>
-                </div>
-                <div id="main-chart"></div>
-            </section>
+                    <div id="main-chart"></div>
+                </section>
+
+                <!-- Team Filter Sidebar (RHS of chart) -->
+                <aside class="team-sidebar card" id="team-filter-bar">
+                    <div class="filter-header">
+                        <h3>Teams</h3>
+                        <button class="btn-clear" id="btn-clear-filter" title="Clear selection">Clear</button>
+                    </div>
+                    <div class="team-pills" id="team-pills"></div>
+                </aside>
+            </div>
 
             <!-- Bottom Grid: League Table + Gameweek Fixtures -->
             <div class="bottom-grid">
@@ -93,7 +96,18 @@
 
             <!-- Predicted Scores for next GW -->
             <section class="predictions-section card" id="predictions-section">
-                <h2>Predicted Scores — Gameweek <span id="pred-gw-num"></span></h2>
+                <div class="pred-header">
+                    <h2>Predicted Scores — Gameweek <span id="pred-gw-num"></span></h2>
+                    <span class="info-icon" id="model-info-trigger" tabindex="0" aria-label="Model explanation">ℹ</span>
+                    <div class="model-tooltip" id="model-tooltip">
+                        <strong>Poisson Regression Model</strong>
+                        <p>Each team is assigned <em>attack</em> and <em>defence</em> strength ratings derived from their goals scored and conceded relative to the league average.</p>
+                        <p>Expected goals for a fixture are calculated as:</p>
+                        <p class="formula">λ<sub>home</sub> = Attack<sub>H</sub> × Defence<sub>A</sub> × AvgGoals × HomeAdv</p>
+                        <p class="formula">λ<sub>away</sub> = Attack<sub>A</sub> × Defence<sub>H</sub> × AvgGoals</p>
+                        <p>A Poisson probability grid (0–10 goals each side) then gives the win/draw/loss percentages and the most likely scoreline.</p>
+                    </div>
+                </div>
                 <p class="section-sub">Poisson model based on attack &amp; defence strength ratings</p>
                 <div class="table-wrapper">
                     <table id="predictions-table">
