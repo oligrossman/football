@@ -14,10 +14,9 @@ Interactive dashboard for tracking league standings and match results over the s
   - Shows scores and points awarded per team
   - Highlights rows containing the selected team
 
-- **Automated Updates**: GitHub Actions workflow scrapes data weekly from playfootball.net
-  - Runs every Monday at 9 AM UTC
-  - Can be triggered manually via GitHub Actions UI
-  - Automatically commits updated data to the repository
+- **Manual Data Updates**: Data is maintained in `data/results.json`
+  - Update the file with new fixtures as the season progresses
+  - The dashboard automatically reflects the latest data
 
 ## Setup
 
@@ -48,18 +47,16 @@ python -m http.server 8000
 4. Select branch: `main` and folder: `/ (root)`
 5. Your dashboard will be live at `https://<username>.github.io/football/`
 
-### Automated Scraping
+### Updating Data
 
-The GitHub Actions workflow will automatically:
-- Run every Monday at 9 AM UTC
-- Scrape the latest data from playfootball.net
-- Commit updated `data/results.json` to the repository
-- GitHub Pages will automatically update with the new data
+Since the playfootball.net site blocks automated scraping (403 Forbidden), data is maintained manually:
 
-To trigger manually:
-- Go to Actions tab in GitHub
-- Select "Scrape League Data" workflow
-- Click "Run workflow"
+1. Get the latest results from the playfootball.net website
+2. Edit `data/results.json` with the new fixtures
+3. Follow the existing JSON structure (see Data Format section below)
+4. Commit and push to update the dashboard
+
+The dashboard will automatically show the updated data once the file is updated.
 
 ## Data Format
 

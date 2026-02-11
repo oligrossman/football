@@ -1,63 +1,21 @@
-name: Scrape League Data
+# Scraping workflow disabled - site blocks automated requests (403 Forbidden)
+# Data is now manually maintained in data/results.json
+# 
+# To update data:
+# 1. Get latest results from playfootball.net
+# 2. Edit data/results.json with new fixtures
+# 3. Commit and push changes
 
-on:
-  # Run every Monday at 9 AM UTC
-  schedule:
-    - cron: '0 9 * * 1'
-  # Allow manual trigger
-  workflow_dispatch:
-  # Run on push to main (for testing)
-  push:
-    branches:
-      - main
-    paths:
-      - 'scraper/**'
-      - '.github/workflows/scrape.yml'
-
-jobs:
-  scrape:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: |
-          cd scraper
-          pip install -r requirements.txt
-      
-      - name: Run scraper
-        run: |
-          cd scraper
-          python scrape.py || {
-            echo "⚠️  Standard scraper failed (likely 403 Forbidden)"
-            echo "The site may require JavaScript rendering or have anti-bot protection."
-            echo "Consider using scrape_selenium.py or manual data entry."
-            exit 1
-          }
-      
-      - name: Check for changes
-        id: verify-changed-files
-        run: |
-          if [ -n "$(git status --porcelain data/results.json)" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Commit and push changes
-        if: steps.verify-changed-files.outputs.changed == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data/results.json
-          git commit -m "Auto-update league data [skip ci]" || exit 0
-          git push
+# name: Scrape League Data
+# 
+# on:
+#   workflow_dispatch:  # Manual trigger only
+# 
+# jobs:
+#   scrape:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#       - name: Note
+#         run: echo "Scraping disabled - update data/results.json manually"

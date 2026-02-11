@@ -3,63 +3,899 @@
   "venue": "Islington Market Road",
   "last_updated": "2026-02-11 12:00:00",
   "teams": [
-    "Team A",
-    "Team B",
-    "Team C",
-    "Team D"
+    "Ballers",
+    "Colonel Getafe",
+    "EL Patio Doors",
+    "Fraud FC",
+    "Fusion",
+    "Keeshan's FC",
+    "Las Nuevas Maradonas",
+    "Made of Ale FC",
+    "Palace Athletic",
+    "Rosemary FC",
+    "Tayo's Children",
+    "The Nutmegs"
   ],
   "gameweeks": [
     {
       "week": 1,
-      "date": "2025-09-15",
+      "date": "2025-09-08",
       "fixtures": [
         {
-          "home": "Team A",
-          "away": "Team B",
-          "home_score": 3,
+          "home": "Colonel Getafe",
+          "away": "Fraud FC",
+          "home_score": 4,
+          "away_score": 2
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "Ballers",
+          "home_score": 6,
           "away_score": 1
         },
         {
-          "home": "Team C",
-          "away": "Team D",
-          "home_score": 2,
-          "away_score": 2
+          "home": "Keeshan's FC",
+          "away": "EL Patio Doors",
+          "home_score": 3,
+          "away_score": 0
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Palace Athletic",
+          "home_score": 4,
+          "away_score": 3
+        },
+        {
+          "home": "Fusion",
+          "away": "Rosemary FC",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Tayo's Children",
+          "home_score": 0,
+          "away_score": 6
         }
       ]
     },
     {
       "week": 2,
-      "date": "2025-09-22",
+      "date": "2025-09-15",
       "fixtures": [
         {
-          "home": "Team A",
-          "away": "Team C",
+          "home": "The Nutmegs",
+          "away": "Made of Ale FC",
           "home_score": 1,
-          "away_score": 0
+          "away_score": 1
         },
         {
-          "home": "Team B",
-          "away": "Team D",
-          "home_score": 2,
+          "home": "Fraud FC",
+          "away": "Ballers",
+          "home_score": 1,
+          "away_score": 6
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Fusion",
+          "home_score": 0,
           "away_score": 3
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Keeshan's FC",
+          "home_score": 1,
+          "away_score": 2
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Colonel Getafe",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 2,
+          "away_score": 1
         }
       ]
     },
     {
       "week": 3,
+      "date": "2025-09-22",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "EL Patio Doors",
+          "home_score": 2,
+          "away_score": 3
+        },
+        {
+          "home": "Ballers",
+          "away": "Rosemary FC",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Tayo's Children",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Fusion",
+          "away": "Palace Athletic",
+          "home_score": 2,
+          "away_score": 0
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Made of Ale FC",
+          "home_score": 2,
+          "away_score": 2
+        },
+        {
+          "home": "Fraud FC",
+          "away": "The Nutmegs",
+          "home_score": 0,
+          "away_score": 3
+        }
+      ]
+    },
+    {
+      "week": 4,
       "date": "2025-09-29",
       "fixtures": [
         {
-          "home": "Team A",
-          "away": "Team D",
+          "home": "Las Nuevas Maradonas",
+          "away": "The Nutmegs",
+          "home_score": 0,
+          "away_score": 4
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Ballers",
+          "home_score": 2,
+          "away_score": 0
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Keeshan's FC",
+          "home_score": 0,
+          "away_score": 3
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Fusion",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Colonel Getafe",
+          "home_score": 0,
+          "away_score": 3
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Fraud FC",
+          "home_score": 6,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "date": "2025-10-06",
+      "fixtures": [
+        {
+          "home": "The Nutmegs",
+          "away": "Rosemary FC",
+          "home_score": 1,
+          "away_score": 2
+        },
+        {
+          "home": "Ballers",
+          "away": "Palace Athletic",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Fraud FC",
+          "away": "EL Patio Doors",
+          "home_score": 0,
+          "away_score": 5
+        },
+        {
+          "home": "Fusion",
+          "away": "Made of Ale FC",
+          "home_score": 8,
+          "away_score": 0
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 2,
+          "away_score": 1
+        },
+        {
+          "home": "Colonel Getafe",
+          "away": "Tayo's Children",
+          "home_score": 3,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "date": "2025-10-13",
+      "fixtures": [
+        {
+          "home": "The Nutmegs",
+          "away": "Keeshan's FC",
+          "home_score": 4,
+          "away_score": 0
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Ballers",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Rosemary FC",
+          "home_score": 4,
+          "away_score": 3
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Colonel Getafe",
+          "home_score": 1,
+          "away_score": 3
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Fraud FC",
+          "home_score": 3,
+          "away_score": 6
+        },
+        {
+          "home": "Fusion",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 6,
+          "away_score": 0
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "date": "2025-10-20",
+      "fixtures": [
+        {
+          "home": "Keeshan's FC",
+          "away": "Fusion",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Palace Athletic",
+          "home_score": 2,
+          "away_score": 4
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Ballers",
+          "home_score": 0,
+          "away_score": 3
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Colonel Getafe",
+          "home_score": 1,
+          "away_score": 3
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "The Nutmegs",
+          "home_score": 1,
+          "away_score": 3
+        },
+        {
+          "home": "Fraud FC",
+          "away": "Tayo's Children",
+          "home_score": 0,
+          "away_score": 4
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "date": "2025-10-27",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "Keeshan's FC",
+          "home_score": 0,
+          "away_score": 3
+        },
+        {
+          "home": "Ballers",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "EL Patio Doors",
+          "home_score": 1,
+          "away_score": 1
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Rosemary FC",
           "home_score": 4,
           "away_score": 2
         },
         {
-          "home": "Team B",
-          "away": "Team C",
+          "home": "Fraud FC",
+          "away": "Made of Ale FC",
+          "home_score": 5,
+          "away_score": 1
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "Fusion",
+          "home_score": 0,
+          "away_score": 0
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "date": "2025-11-03",
+      "fixtures": [
+        {
+          "home": "Palace Athletic",
+          "away": "The Nutmegs",
+          "home_score": 1,
+          "away_score": 8
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Fraud FC",
+          "home_score": 2,
+          "away_score": 0
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Ballers",
+          "home_score": 8,
+          "away_score": 0
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Tayo's Children",
+          "home_score": 2,
+          "away_score": 1
+        },
+        {
+          "home": "Fusion",
+          "away": "Colonel Getafe",
+          "home_score": 2,
+          "away_score": 0
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Rosemary FC",
+          "home_score": 2,
+          "away_score": 2
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "date": "2025-11-10",
+      "fixtures": [
+        {
+          "home": "The Nutmegs",
+          "away": "Colonel Getafe",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Made of Ale FC",
+          "home_score": 2,
+          "away_score": 3
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 6,
+          "away_score": 1
+        },
+        {
+          "home": "Ballers",
+          "away": "Fusion",
+          "home_score": 0,
+          "away_score": 1
+        },
+        {
+          "home": "Fraud FC",
+          "away": "Keeshan's FC",
+          "home_score": 1,
+          "away_score": 4
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Palace Athletic",
+          "home_score": 2,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "date": "2025-11-17",
+      "fixtures": [
+        {
+          "home": "Fusion",
+          "away": "Fraud FC",
           "home_score": 1,
           "away_score": 1
+        },
+        {
+          "home": "Colonel Getafe",
+          "away": "Ballers",
+          "home_score": 3,
+          "away_score": 0
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "EL Patio Doors",
+          "home_score": 0,
+          "away_score": 1
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Rosemary FC",
+          "home_score": 2,
+          "away_score": 1
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Palace Athletic",
+          "home_score": 0,
+          "away_score": 1
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "Tayo's Children",
+          "home_score": 1,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "date": "2025-11-24",
+      "fixtures": [
+        {
+          "home": "Tayo's Children",
+          "away": "Made of Ale FC",
+          "home_score": 4,
+          "away_score": 3
+        },
+        {
+          "home": "Ballers",
+          "away": "The Nutmegs",
+          "home_score": 1,
+          "away_score": 7
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Keeshan's FC",
+          "home_score": 3,
+          "away_score": 6
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 2,
+          "away_score": 3
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Fusion",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Fraud FC",
+          "away": "Colonel Getafe",
+          "home_score": 1,
+          "away_score": 0
+        }
+      ]
+    },
+    {
+      "week": 13,
+      "date": "2025-12-01",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "Rosemary FC",
+          "home_score": 7,
+          "away_score": 1
+        },
+        {
+          "home": "Ballers",
+          "away": "Fraud FC",
+          "home_score": 2,
+          "away_score": 3
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Tayo's Children",
+          "home_score": 2,
+          "away_score": 1
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Palace Athletic",
+          "home_score": 2,
+          "away_score": 2
+        },
+        {
+          "home": "Fusion",
+          "away": "EL Patio Doors",
+          "home_score": 5,
+          "away_score": 3
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "The Nutmegs",
+          "home_score": 1,
+          "away_score": 13
+        }
+      ]
+    },
+    {
+      "week": 14,
+      "date": "2025-12-08",
+      "fixtures": [
+        {
+          "home": "Made of Ale FC",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 0,
+          "away_score": 5
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Ballers",
+          "home_score": 1,
+          "away_score": 1
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Colonel Getafe",
+          "home_score": 4,
+          "away_score": 1
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Keeshan's FC",
+          "home_score": 1,
+          "away_score": 1
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Fusion",
+          "home_score": 0,
+          "away_score": 8
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "Fraud FC",
+          "home_score": 0,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 15,
+      "date": "2025-12-15",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "Palace Athletic",
+          "home_score": 5,
+          "away_score": 1
+        },
+        {
+          "home": "Ballers",
+          "away": "EL Patio Doors",
+          "home_score": 2,
+          "away_score": 5
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Made of Ale FC",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Fusion",
+          "away": "Tayo's Children",
+          "home_score": 2,
+          "away_score": 0
+        },
+        {
+          "home": "Fraud FC",
+          "away": "Rosemary FC",
+          "home_score": 4,
+          "away_score": 0
+        }
+      ]
+    },
+    {
+      "week": 16,
+      "date": "2026-01-05",
+      "fixtures": [
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Keeshan's FC",
+          "home_score": 0,
+          "away_score": 8
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Ballers",
+          "home_score": 1,
+          "away_score": 1
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Fraud FC",
+          "home_score": 0,
+          "away_score": 1
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Fusion",
+          "home_score": 0,
+          "away_score": 5
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Colonel Getafe",
+          "home_score": 1,
+          "away_score": 3
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "The Nutmegs",
+          "home_score": 0,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 17,
+      "date": "2026-01-12",
+      "fixtures": [
+        {
+          "home": "Fraud FC",
+          "away": "Palace Athletic",
+          "home_score": 0,
+          "away_score": 4
+        },
+        {
+          "home": "Ballers",
+          "away": "Tayo's Children",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "EL Patio Doors",
+          "home_score": 2,
+          "away_score": 4
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "The Nutmegs",
+          "home_score": 1,
+          "away_score": 0
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Fusion",
+          "home_score": 1,
+          "away_score": 4
+        },
+        {
+          "home": "Colonel Getafe",
+          "away": "Made of Ale FC",
+          "home_score": 2,
+          "away_score": 1
+        }
+      ]
+    },
+    {
+      "week": 18,
+      "date": "2026-01-19",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Ballers",
+          "away": "Made of Ale FC",
+          "home_score": 4,
+          "away_score": 2
+        },
+        {
+          "home": "The Nutmegs",
+          "away": "EL Patio Doors",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Fusion",
+          "away": "Keeshan's FC",
+          "home_score": 4,
+          "away_score": 2
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "Fraud FC",
+          "home_score": 4,
+          "away_score": 1
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Rosemary FC",
+          "home_score": 0,
+          "away_score": 2
+        }
+      ]
+    },
+    {
+      "week": 19,
+      "date": "2026-01-26",
+      "fixtures": [
+        {
+          "home": "Fusion",
+          "away": "The Nutmegs",
+          "home_score": 4,
+          "away_score": 2
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Ballers",
+          "home_score": 2,
+          "away_score": 7
+        },
+        {
+          "home": "EL Patio Doors",
+          "away": "Palace Athletic",
+          "home_score": 4,
+          "away_score": 3
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Colonel Getafe",
+          "home_score": 1,
+          "away_score": 1
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "Fraud FC",
+          "home_score": 1,
+          "away_score": 2
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Tayo's Children",
+          "home_score": 1,
+          "away_score": 2
+        }
+      ]
+    },
+    {
+      "week": 20,
+      "date": "2026-02-02",
+      "fixtures": [
+        {
+          "home": "The Nutmegs",
+          "away": "Palace Athletic",
+          "home_score": 1,
+          "away_score": 2
+        },
+        {
+          "home": "Ballers",
+          "away": "Keeshan's FC",
+          "home_score": 0,
+          "away_score": 6
+        },
+        {
+          "home": "Tayo's Children",
+          "away": "EL Patio Doors",
+          "home_score": 2,
+          "away_score": 3
+        },
+        {
+          "home": "Rosemary FC",
+          "away": "Made of Ale FC",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Fraud FC",
+          "away": "Las Nuevas Maradonas",
+          "home_score": 0,
+          "away_score": 5
+        },
+        {
+          "home": "Colonel Getafe",
+          "away": "Fusion",
+          "home_score": 1,
+          "away_score": 7
+        }
+      ]
+    },
+    {
+      "week": 21,
+      "date": "2026-02-09",
+      "fixtures": [
+        {
+          "home": "Colonel Getafe",
+          "away": "The Nutmegs",
+          "home_score": 2,
+          "away_score": 1
+        },
+        {
+          "home": "Fusion",
+          "away": "Ballers",
+          "home_score": 5,
+          "away_score": 0
+        },
+        {
+          "home": "Made of Ale FC",
+          "away": "EL Patio Doors",
+          "home_score": 7,
+          "away_score": 3
+        },
+        {
+          "home": "Keeshan's FC",
+          "away": "Fraud FC",
+          "home_score": 3,
+          "away_score": 2
+        },
+        {
+          "home": "Las Nuevas Maradonas",
+          "away": "Rosemary FC",
+          "home_score": 3,
+          "away_score": 1
+        },
+        {
+          "home": "Palace Athletic",
+          "away": "Tayo's Children",
+          "home_score": 0,
+          "away_score": 2
         }
       ]
     }

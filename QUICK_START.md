@@ -1,42 +1,40 @@
-# Quick Start - Get Your Real Data
+# Quick Start
 
-To see your actual teams (like Colonel Getafe) instead of the placeholder data, you have several options:
+## View Your Dashboard
 
-## Option 1: Run the Scraper Locally (May get 403 error)
+The dashboard is ready to use! All your real data (including Colonel Getafe) is already loaded in `data/results.json`.
 
-```bash
-cd scraper
-pip install -r requirements.txt
-python scrape.py
-```
+**To view the dashboard:**
 
-**Note:** If you get a `403 Forbidden` error, the site is blocking automated requests. Try Option 2 or 3.
+1. Open `index.html` in your web browser, or
+2. Run a local server:
+   ```bash
+   python3 -m http.server 8000
+   # Then visit http://localhost:8000
+   ```
 
-## Option 2: Use Selenium Scraper (For JavaScript-rendered pages)
+## Updating Data (For Future Gameweeks)
 
-If the standard scraper fails, try the Selenium version:
+Since automated scraping doesn't work (site blocks it), update data manually:
 
-```bash
-cd scraper
-pip install selenium beautifulsoup4
-# Make sure ChromeDriver is installed: brew install chromedriver
-python scrape_selenium.py
-```
-
-## Option 3: Manual Data Entry (Recommended if scraping fails)
-
-Use the interactive helper script:
-
-```bash
-cd scraper
-python manual_data_entry.py
-```
-
-This will guide you through entering your teams and fixtures step-by-step.
-
-## Option 4: Edit JSON Directly
-
-You can manually edit `data/results.json` with your real teams and fixtures.
+1. Get the latest results from playfootball.net
+2. Edit `data/results.json` 
+3. Add new gameweek entries following the existing format:
+   ```json
+   {
+     "week": 22,
+     "date": "2026-02-16",
+     "fixtures": [
+       {
+         "home": "Team A",
+         "away": "Team B",
+         "home_score": 3,
+         "away_score": 1
+       }
+     ]
+   }
+   ```
+4. Save and commit - the dashboard will automatically update!
 
 The structure should be:
 ```json
