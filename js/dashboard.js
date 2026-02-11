@@ -31,6 +31,20 @@ const PALETTE = [
     '#4ade80', '#e879f9', '#22d3ee', '#facc15',
 ];
 
+/* Kick-off time slots (fixtures are stored in this order) */
+const SLOT_TIMES = ['18:00', '18:40', '19:20', '20:00', '20:40', '21:20'];
+
+function getFixtureTime(fixture, fixtureIdx) {
+    // Future gameweeks store explicit `time`; historical ones derive from slot order
+    return fixture.time || SLOT_TIMES[fixtureIdx] || null;
+}
+
+function isLateKO(time) { return time && time >= '20:00'; }
+
+function isGetafeFixture(f) {
+    return f.home === 'Colonel Getafe' || f.away === 'Colonel Getafe';
+}
+
 /* ============================================================
    Boot
    ============================================================ */
@@ -143,14 +157,19 @@ function getStandings() {
         m[t] = { team: t, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0, results: [] };
     });
     data.gameweeks.forEach(gw => {
-        gw.fixtures.forEach(f => {
+        gw.fixtures.forEach((f, fIdx) => {
             const hp = pts(f.home_score, f.away_score);
             const ap = pts(f.away_score, f.home_score);
+            const time = getFixtureTime(f, fIdx);
+            const late = isLateKO(time);
+            const isGetafe = isGetafeFixture(f);
+
             const h = m[f.home]; h.p++; h.gf += f.home_score; h.ga += f.away_score; h.pts += hp;
-            h.results.push(hp === 3 ? 'W' : hp === 1 ? 'D' : 'L');
+            h.results.push({ r: hp === 3 ? 'W' : hp === 1 ? 'D' : 'L', lateGetafe: isGetafe && late, time });
             if (hp === 3) h.w++; else if (hp === 1) h.d++; else h.l++;
+
             const a = m[f.away]; a.p++; a.gf += f.away_score; a.ga += f.home_score; a.pts += ap;
-            a.results.push(ap === 3 ? 'W' : ap === 1 ? 'D' : 'L');
+            a.results.push({ r: ap === 3 ? 'W' : ap === 1 ? 'D' : 'L', lateGetafe: isGetafe && late, time });
             if (ap === 3) a.w++; else if (ap === 1) a.d++; else a.l++;
         });
     });
@@ -420,6 +439,12 @@ function renderLeagueTable() {
         if (row.team === selectedTeam) tr.classList.add('selected-row');
 
         const form = row.results.slice(-5);
+        const formHTML = form.map(f => {
+            const cls = `form-dot ${f.r}` + (f.lateGetafe ? ' late-staggs' : '');
+            const tip = f.lateGetafe ? ' title="Too late for Staggs"' : '';
+            return `<span class="${cls}"${tip}>${f.r}</span>`;
+        }).join('');
+
         tr.innerHTML = `
             <td class="pos-cell">${idx + 1}</td>
             <td class="team-cell">
@@ -430,12 +455,12 @@ function renderLeagueTable() {
             <td class="num-cell">${row.w}</td>
             <td class="num-cell">${row.d}</td>
             <td class="num-cell">${row.l}</td>
-            <td class="num-cell">${row.gf}</td>
-            <td class="num-cell">${row.ga}</td>
+            <td class="num-cell hide-mobile">${row.gf}</td>
+            <td class="num-cell hide-mobile">${row.ga}</td>
             <td class="num-cell" style="color:${row.gd > 0 ? 'var(--green)' : row.gd < 0 ? 'var(--red)' : 'var(--text-dim)'}">${row.gd > 0 ? '+' : ''}${row.gd}</td>
             <td class="pts-cell">${row.pts}</td>
             <td class="num-cell">
-                <div class="form-dots">${form.map(r => `<span class="form-dot ${r}">${r}</span>`).join('')}</div>
+                <div class="form-dots">${formHTML}</div>
             </td>`;
         tr.addEventListener('click', () => toggleSelection(row.team));
         tbody.appendChild(tr);
@@ -463,23 +488,37 @@ function showGameweekTable(weekNum) {
     const tbody = document.getElementById('fixtures-tbody');
     tbody.innerHTML = '';
 
-    gw.fixtures.forEach(f => {
+    gw.fixtures.forEach((f, fIdx) => {
         const hp = pts(f.home_score, f.away_score);
         const ap = pts(f.away_score, f.home_score);
+        const time = getFixtureTime(f, fIdx);
+        const late = isLateKO(time);
+        const isGetafe = isGetafeFixture(f);
+        const staggs = isGetafe && late;
+
         const tr = document.createElement('tr');
         if (selectedTeam && (f.home === selectedTeam || f.away === selectedTeam))
             tr.classList.add('selected-fixture');
+        if (staggs) tr.classList.add('staggs-row');
 
         const hWon = f.home_score > f.away_score;
         const aWon = f.away_score > f.home_score;
 
+        const staggsTag = staggs
+            ? '<span class="staggs-badge" title="Too late for Staggs">🌙 Too late for Staggs</span>'
+            : '';
+
         tr.innerHTML = `
             <td class="home-cell" style="color:${teamColors[f.home]};opacity:${hWon ? 1 : 0.7}">
-                ${f.home} <small style="color:var(--text-dim);margin-left:4px">(${hp})</small>
+                ${f.home} <small class="pts-tag">(${hp})</small>
             </td>
-            <td class="score-cell">${f.home_score} – ${f.away_score}</td>
+            <td class="score-cell">
+                <span class="ko-label">${time || ''}</span>
+                ${f.home_score} – ${f.away_score}
+                ${staggsTag}
+            </td>
             <td class="away-cell" style="color:${teamColors[f.away]};opacity:${aWon ? 1 : 0.7}">
-                ${f.away} <small style="color:var(--text-dim);margin-left:4px">(${ap})</small>
+                ${f.away} <small class="pts-tag">(${ap})</small>
             </td>`;
         tbody.appendChild(tr);
     });

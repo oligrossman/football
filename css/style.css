@@ -217,10 +217,18 @@ tbody tr:last-child td { border-bottom: none; }
     width: 18px; height: 18px; border-radius: 4px;
     display: flex; align-items: center; justify-content: center;
     font-size: .65rem; font-weight: 800; color: #000; flex-shrink: 0;
+    position: relative;
 }
 .form-dot.W { background: var(--green); }
 .form-dot.D { background: var(--amber); }
 .form-dot.L { background: var(--red); }
+
+/* "Too late for Staggs" — bold dot with ring + cursor */
+.form-dot.late-staggs {
+    box-shadow: 0 0 0 2.5px #fff, 0 0 8px rgba(255,255,255,.45);
+    cursor: help;
+    transform: scale(1.15);
+}
 
 /* ---- Fixtures Table specifics ---- */
 #fixtures-table .home-cell { text-align: right; font-weight: 600; padding-right: 12px; }
@@ -230,6 +238,23 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--accent); letter-spacing: .04em; min-width: 60px;
 }
 #fixtures-table tbody tr.selected-fixture { background: var(--accent-glow) !important; }
+
+/* KO time above the score */
+.ko-label {
+    display: block; font-size: .68rem; font-weight: 500;
+    color: var(--text-dim); letter-spacing: .02em; margin-bottom: 1px;
+}
+
+/* "Too late for Staggs" badge */
+.staggs-badge {
+    display: block; font-size: .68rem; font-weight: 600;
+    color: var(--amber); margin-top: 3px; white-space: nowrap;
+    cursor: help;
+}
+#fixtures-table tbody tr.staggs-row {
+    background: rgba(251, 191, 36, .06);
+}
+.pts-tag { color: var(--text-dim); margin-left: 4px; }
 
 /* ---- Predictions Header + Tooltip ---- */
 .predictions-section { padding: 20px 24px; }
@@ -311,6 +336,7 @@ tbody tr:last-child td { border-bottom: none; }
 /* ==============================
    Responsive
    ============================== */
+
 @media (max-width: 1100px) {
     .chart-row { grid-template-columns: 1fr 170px; }
     .team-pill { font-size: .75rem; padding: 5px 10px; }
@@ -326,13 +352,64 @@ tbody tr:last-child td { border-bottom: none; }
     .team-pills { flex-direction: row; flex-wrap: wrap; }
 }
 
+/* ---- iPhone 16 / small phones (≤430px) ---- */
 @media (max-width: 640px) {
     html { font-size: 13px; }
-    header { flex-direction: column; align-items: flex-start; gap: 6px; }
-    h1 { font-size: 1.6rem; }
-    #main-chart { height: 380px; }
-    .team-pill { font-size: .72rem; padding: 5px 8px; }
-    .chart-controls { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .container { padding: 12px 10px 40px; }
+    header { flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 14px 14px; }
+    h1 { font-size: 1.45rem; }
+
+    /* Chart */
+    #main-chart { height: 340px; }
+    .chart-section { padding: 12px 10px 8px; }
+    .chart-controls { flex-direction: column; gap: 6px; align-items: flex-start; }
+    .toggle-btn { padding: 6px 12px; font-size: .78rem; }
+
+    /* Team sidebar → compact row */
+    .team-sidebar { padding: 10px 10px; }
+    .team-pill { font-size: .72rem; padding: 5px 8px; border-radius: 6px; }
+    .team-pill .dot { width: 8px; height: 8px; }
+    .filter-header { margin-bottom: 8px; }
+
+    /* Tables */
+    .league-table-section, .fixtures-section,
+    .predictions-section, .upcoming-section { padding: 12px 10px; }
+
+    .hide-mobile { display: none !important; }
+
+    thead th { padding: 7px 4px; font-size: .62rem; }
+    tbody td { padding: 7px 4px; font-size: .78rem; }
+
+    .col-pos { width: 22px; }
+    .col-num { width: 26px; }
+    .col-team { min-width: 70px; }
+
+    #league-table tbody td.team-cell { font-size: .78rem; }
+    #league-table tbody td.pts-cell { font-size: .82rem; }
+
+    .form-dots { gap: 3px; }
+    .form-dot { width: 16px; height: 16px; font-size: .58rem; }
+    .form-dot.late-staggs { transform: scale(1.1); }
+
+    /* Fixtures table: stack score compactly */
+    #fixtures-table .home-cell,
+    #fixtures-table .away-cell { padding-left: 4px; padding-right: 4px; font-size: .78rem; }
+    #fixtures-table .score-cell { font-size: .88rem; min-width: 50px; }
+    .ko-label { font-size: .6rem; }
+    .staggs-badge { font-size: .6rem; }
+
+    /* Predictions table */
+    #predictions-table .home-cell,
+    #predictions-table .away-cell { font-size: .78rem; padding-left: 4px; padding-right: 4px; }
+    #predictions-table .pct-cell { font-size: .72rem; }
+
+    /* Upcoming cards */
+    .upcoming-card { padding: 10px 12px; gap: 10px; }
+    .upcoming-card .ko-time { font-size: .72rem; min-width: 80px; }
+    .upcoming-card .matchup { font-size: .85rem; }
+
+    /* Model tooltip */
+    .model-tooltip { width: calc(100vw - 40px); max-width: none; }
 }
 
 /* ==============================
