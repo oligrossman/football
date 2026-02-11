@@ -228,6 +228,41 @@ function buildPredictions() {
         strength[r.team] = { attack, defence };
     });
 
+    // --- KO time performance lookup ---
+    // For each team: { time → {pts, games} } and overall avg PPG
+    const koPerf = {};
+    data.teams.forEach(t => { koPerf[t] = { byTime: {}, totalPts: 0, totalGames: 0 }; });
+    data.gameweeks.forEach(gw => {
+        gw.fixtures.forEach((f, fIdx) => {
+            const time = getFixtureTime(f, fIdx);
+            if (!time) return;
+            const hp = pts(f.home_score, f.away_score);
+            const ap = pts(f.away_score, f.home_score);
+            [{ team: f.home, p: hp }, { team: f.away, p: ap }].forEach(({ team, p }) => {
+                const k = koPerf[team];
+                if (!k.byTime[time]) k.byTime[time] = { pts: 0, games: 0 };
+                k.byTime[time].pts += p;
+                k.byTime[time].games += 1;
+                k.totalPts += p;
+                k.totalGames += 1;
+            });
+        });
+    });
+
+    /** KO time multiplier: avgPPG at this slot / overall avgPPG.
+     *  Clamped to [0.5, 1.5] to avoid wild swings from small samples.
+     *  Falls back to 1.0 if no data for this slot. */
+    function koMultiplier(team, time) {
+        const k = koPerf[team];
+        if (!k || k.totalGames === 0) return 1;
+        const overallPPG = k.totalPts / k.totalGames;
+        if (overallPPG === 0) return 1;
+        const slot = k.byTime[time];
+        if (!slot || slot.games === 0) return 1;
+        const slotPPG = slot.pts / slot.games;
+        return Math.max(0.5, Math.min(1.5, slotPPG / overallPPG));
+    }
+
     // Predict each future gameweek
     const allPredicted = [];
     const projectedCumulative = [];
@@ -239,12 +274,16 @@ function buildPredictions() {
             ? { ...projectedCumulative[projectedCumulative.length - 1] }
             : { ...lastActual };
 
-        fgw.fixtures.forEach(f => {
+        fgw.fixtures.forEach((f, fIdx) => {
             const sH = strength[f.home] || { attack: 1, defence: 1 };
             const sA = strength[f.away] || { attack: 1, defence: 1 };
 
-            const lambdaH = sH.attack * sA.defence * avgGoals * homeAdv;
-            const lambdaA = sA.attack * sH.defence * avgGoals;
+            const time = getFixtureTime(f, fIdx);
+            const koH = koMultiplier(f.home, time);
+            const koA = koMultiplier(f.away, time);
+
+            const lambdaH = sH.attack * sA.defence * avgGoals * homeAdv * koH;
+            const lambdaA = sA.attack * sH.defence * avgGoals * koA;
 
             // Enumerate score grid
             let pHome = 0, pDraw = 0, pAway = 0;

@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Players Lounge — League Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <script>document.write('<link rel="stylesheet" href="css/style.css?v=' + Date.now() + '">');</script>
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 </head>
 <body>
@@ -98,49 +102,56 @@
                 </section>
             </div>
 
-            <!-- Avg Points by Kick-off Time -->
-            <section class="ko-heatmap-section card" id="ko-heatmap-section">
-                <h2>Avg Points per Game by Kick-off Time</h2>
-                <p class="section-sub">Colour scale: <span style="color:var(--red)">low</span> → <span style="color:var(--amber)">mid</span> → <span style="color:var(--green)">high</span>&ensp;·&ensp;Games played shown in brackets</p>
-                <div class="table-wrapper">
-                    <table id="ko-heatmap-table">
-                        <thead id="ko-heatmap-thead"></thead>
-                        <tbody id="ko-heatmap-tbody"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Predicted Scores for next GW -->
-            <section class="predictions-section card" id="predictions-section">
-                <div class="pred-header">
-                    <h2>Predicted Scores — Gameweek <span id="pred-gw-num"></span></h2>
+            <!-- Analytics -->
+            <div class="analytics-wrapper">
+                <div class="analytics-header">
+                    <h2 class="analytics-title">Analytics</h2>
                     <span class="info-icon" id="model-info-trigger" tabindex="0" aria-label="Model explanation">ℹ</span>
                     <div class="model-tooltip" id="model-tooltip">
-                        <strong>Poisson Regression Model</strong>
+                        <strong>Poisson Regression Model + KO Time Adjustment</strong>
                         <p>Each team is assigned <em>attack</em> and <em>defence</em> strength ratings derived from their goals scored and conceded relative to the league average.</p>
-                        <p>Expected goals for a fixture are calculated as:</p>
+                        <p>Base expected goals for a fixture are:</p>
                         <p class="formula">λ<sub>home</sub> = Attack<sub>H</sub> × Defence<sub>A</sub> × AvgGoals × HomeAdv</p>
                         <p class="formula">λ<sub>away</sub> = Attack<sub>A</sub> × Defence<sub>H</sub> × AvgGoals</p>
+                        <p>A <em>kick-off time multiplier</em> is then applied to each team's λ, based on their historical avg PPG at that time slot vs their overall avg PPG. This adjusts predictions for teams that consistently perform better or worse at certain times of day.</p>
+                        <p class="formula">λ<sub>adj</sub> = λ<sub>base</sub> × (AvgPPG<sub>at slot</sub> / AvgPPG<sub>overall</sub>)</p>
                         <p>A Poisson probability grid (0–10 goals each side) then gives the win/draw/loss percentages and the most likely scoreline.</p>
                     </div>
                 </div>
-                <p class="section-sub">Poisson model based on attack &amp; defence strength ratings</p>
-                <div class="table-wrapper">
-                    <table id="predictions-table">
-                        <thead>
-                            <tr>
-                                <th class="col-team">Home</th>
-                                <th class="col-score">Predicted</th>
-                                <th class="col-team">Away</th>
-                                <th class="col-num">H%</th>
-                                <th class="col-num">D%</th>
-                                <th class="col-num">A%</th>
-                            </tr>
-                        </thead>
-                        <tbody id="predictions-tbody"></tbody>
-                    </table>
-                </div>
-            </section>
+
+                <!-- Avg Points by Kick-off Time -->
+                <section class="ko-heatmap-section card" id="ko-heatmap-section">
+                    <h2>Avg Points per Game by Kick-off Time</h2>
+                    <p class="section-sub">Colour scale: <span style="color:var(--red)">low</span> → <span style="color:var(--amber)">mid</span> → <span style="color:var(--green)">high</span>&ensp;·&ensp;Games played shown in brackets &ensp;·&ensp;This data feeds into the prediction model below</p>
+                    <div class="table-wrapper">
+                        <table id="ko-heatmap-table">
+                            <thead id="ko-heatmap-thead"></thead>
+                            <tbody id="ko-heatmap-tbody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Predicted Scores for next GW -->
+                <section class="predictions-section card" id="predictions-section">
+                    <h2>Predicted Scores — Gameweek <span id="pred-gw-num"></span></h2>
+                    <p class="section-sub">Poisson model adjusted for kick-off time performance</p>
+                    <div class="table-wrapper">
+                        <table id="predictions-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-team">Home</th>
+                                    <th class="col-score">Predicted</th>
+                                    <th class="col-team">Away</th>
+                                    <th class="col-num">H%</th>
+                                    <th class="col-num">D%</th>
+                                    <th class="col-num">A%</th>
+                                </tr>
+                            </thead>
+                            <tbody id="predictions-tbody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
 
             <!-- Upcoming Fixtures — Colonel Getafe -->
             <section class="upcoming-section card" id="upcoming-section">
@@ -150,6 +161,6 @@
         </main>
     </div>
 
-    <script src="js/dashboard.js"></script>
+    <script>document.write('<script src="js/dashboard.js?v=' + Date.now() + '"><\/script>');</script>
 </body>
 </html>

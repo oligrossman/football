@@ -273,6 +273,22 @@ tbody tr:last-child td { border-bottom: none; }
 }
 .pts-tag { color: var(--text-dim); margin-left: 4px; }
 
+/* ---- Analytics Wrapper ---- */
+.analytics-wrapper {
+    display: flex; flex-direction: column; gap: 20px;
+}
+.analytics-header {
+    display: flex; align-items: center; gap: 12px;
+    position: relative;
+}
+.analytics-title {
+    font-size: 1.4rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--amber), var(--green));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -.02em;
+}
+
 /* ---- KO Heatmap ---- */
 .ko-heatmap-section { padding: 20px 24px; }
 .ko-heatmap-section h2 {
@@ -306,14 +322,8 @@ tbody tr:last-child td { border-bottom: none; }
 #ko-heatmap-table tbody tr { cursor: pointer; }
 #ko-heatmap-table tbody tr.selected-row { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-/* ---- Predictions Header + Tooltip ---- */
+/* ---- Predictions + Tooltip ---- */
 .predictions-section { padding: 20px 24px; }
-
-.pred-header {
-    display: flex; align-items: center; gap: 10px; position: relative;
-    margin-bottom: 4px;
-}
-.pred-header h2 { margin-bottom: 0; }
 
 .info-icon {
     display: inline-flex; align-items: center; justify-content: center;
@@ -440,6 +450,20 @@ tbody tr:last-child td { border-bottom: none; }
     .form-dots { gap: 3px; }
     .form-dot { width: 16px; height: 16px; font-size: .58rem; }
     .form-dot.late-staggs { transform: scale(1.1); }
+
+    /* GW nav buttons — larger touch targets on mobile */
+    .gw-nav { gap: 8px; }
+    .gw-nav h2 { font-size: .95rem; }
+    .gw-nav-btn {
+        width: 36px; height: 36px; border-radius: 50%;
+        font-size: 1.3rem;
+        background: var(--bg-body); border-color: var(--accent);
+        color: var(--accent);
+    }
+    .gw-nav-btn:disabled { border-color: var(--border); color: var(--text-dim); }
+
+    /* Analytics */
+    .analytics-title { font-size: 1.15rem; }
 
     /* Fixtures table: stack score compactly */
     #fixtures-table .home-cell,
