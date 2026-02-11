@@ -1,8 +1,8 @@
 # Quick Start - Get Your Real Data
 
-To see your actual teams (like Colonel Getafe) instead of the placeholder data, run the scraper:
+To see your actual teams (like Colonel Getafe) instead of the placeholder data, you have several options:
 
-## Option 1: Run the Scraper Locally
+## Option 1: Run the Scraper Locally (May get 403 error)
 
 ```bash
 cd scraper
@@ -10,11 +10,33 @@ pip install -r requirements.txt
 python scrape.py
 ```
 
-This will fetch the real data from playfootball.net and update `data/results.json`.
+**Note:** If you get a `403 Forbidden` error, the site is blocking automated requests. Try Option 2 or 3.
 
-## Option 2: Manual Data Entry (if scraper needs adjustment)
+## Option 2: Use Selenium Scraper (For JavaScript-rendered pages)
 
-If the scraper doesn't work immediately (the page structure may need inspection), you can manually edit `data/results.json` with your real teams and fixtures.
+If the standard scraper fails, try the Selenium version:
+
+```bash
+cd scraper
+pip install selenium beautifulsoup4
+# Make sure ChromeDriver is installed: brew install chromedriver
+python scrape_selenium.py
+```
+
+## Option 3: Manual Data Entry (Recommended if scraping fails)
+
+Use the interactive helper script:
+
+```bash
+cd scraper
+python manual_data_entry.py
+```
+
+This will guide you through entering your teams and fixtures step-by-step.
+
+## Option 4: Edit JSON Directly
+
+You can manually edit `data/results.json` with your real teams and fixtures.
 
 The structure should be:
 ```json

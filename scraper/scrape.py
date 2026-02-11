@@ -38,14 +38,50 @@ def fetch_page(url: str) -> BeautifulSoup:
     Raises:
         requests.RequestException: If the request fails
     """
+    # More realistic browser headers to avoid bot detection
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Cache-Control": "max-age=0"
     }
+    
+    # Use a session to maintain cookies
+    session = requests.Session()
+    session.headers.update(headers)
+    
     # Disable SSL verification warnings (for local development)
     import urllib3
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    response = requests.get(url, headers=headers, timeout=30, verify=False)
-    response.raise_for_status()
+    
+    try:
+        response = session.get(url, timeout=30, verify=False, allow_redirects=True)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 403:
+            print("⚠️  Got 403 Forbidden - the site may be blocking automated requests.")
+            print("   This could mean:")
+            print("   1. The site requires JavaScript (may need Selenium/Playwright)")
+            print("   2. The site has anti-bot protection")
+            print("   3. The page structure has changed")
+            print("\n   Trying with additional headers...")
+            
+            # Try with referer
+            headers["Referer"] = "https://www.playfootball.net/"
+            session.headers.update(headers)
+            response = session.get(url, timeout=30, verify=False, allow_redirects=True)
+            response.raise_for_status()
+        else:
+            raise
+    
     return BeautifulSoup(response.content, "lxml")
 
 
@@ -349,8 +385,23 @@ def main():
         data = scrape_league()
         save_data(data)
         print("Scraping completed successfully!")
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 403:
+            print("\n" + "="*60)
+            print("❌ 403 Forbidden Error - Site is blocking automated requests")
+            print("="*60)
+            print("\nOptions:")
+            print("1. Try the Selenium scraper: python scrape_selenium.py")
+            print("   (Requires: pip install selenium)")
+            print("2. Manually edit data/results.json with your team data")
+            print("3. Check if the page requires login/authentication")
+            print("\nThe site may require JavaScript rendering or have anti-bot protection.")
+            print("="*60)
+        raise
     except Exception as e:
         print(f"Error during scraping: {e}")
+        import traceback
+        traceback.print_exc()
         raise
 
 
