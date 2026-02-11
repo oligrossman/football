@@ -25,9 +25,7 @@
                     <h3>Teams</h3>
                     <button class="btn-clear" id="btn-clear-filter" title="Clear selection">Clear</button>
                 </div>
-                <div class="team-pills" id="team-pills">
-                    <!-- Filled dynamically -->
-                </div>
+                <div class="team-pills" id="team-pills"></div>
             </section>
 
             <!-- Chart Section -->
@@ -37,6 +35,10 @@
                         <button class="toggle-btn active" data-mode="points">Cumulative Points</button>
                         <button class="toggle-btn" data-mode="position">League Position</button>
                     </div>
+                    <label class="proj-toggle">
+                        <input type="checkbox" id="show-projections" checked>
+                        <span>Show projections</span>
+                    </label>
                 </div>
                 <div id="main-chart"></div>
             </section>
@@ -82,14 +84,39 @@
                                 </tr>
                             </thead>
                             <tbody id="fixtures-tbody">
-                                <tr>
-                                    <td colspan="3" class="no-data">Hover on the chart to view fixtures</td>
-                                </tr>
+                                <tr><td colspan="3" class="no-data">Hover on the chart to view fixtures</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </section>
             </div>
+
+            <!-- Predicted Scores for next GW -->
+            <section class="predictions-section card" id="predictions-section">
+                <h2>Predicted Scores — Gameweek <span id="pred-gw-num"></span></h2>
+                <p class="section-sub">Poisson model based on attack &amp; defence strength ratings</p>
+                <div class="table-wrapper">
+                    <table id="predictions-table">
+                        <thead>
+                            <tr>
+                                <th class="col-team">Home</th>
+                                <th class="col-score">Predicted</th>
+                                <th class="col-team">Away</th>
+                                <th class="col-num">H%</th>
+                                <th class="col-num">D%</th>
+                                <th class="col-num">A%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="predictions-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Upcoming Fixtures — Colonel Getafe -->
+            <section class="upcoming-section card" id="upcoming-section">
+                <h2>Upcoming — Colonel Getafe</h2>
+                <div id="upcoming-fixtures"></div>
+            </section>
         </main>
     </div>
 

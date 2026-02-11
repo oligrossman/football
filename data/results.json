@@ -899,5 +899,19 @@
         }
       ]
     }
+  ],
+  "future_gameweeks": [
+    {
+      "week": 22,
+      "date": "2026-02-16",
+      "fixtures": [
+        { "home": "Rosemary FC", "away": "Keeshan's FC", "time": "18:00" },
+        { "home": "Ballers", "away": "Colonel Getafe", "time": "18:40" },
+        { "home": "EL Patio Doors", "away": "Las Nuevas Maradonas", "time": "19:20" },
+        { "home": "Palace Athletic", "away": "Made of Ale FC", "time": "20:00" },
+        { "home": "Tayo's Children", "away": "The Nutmegs", "time": "20:40" },
+        { "home": "Fraud FC", "away": "Fusion", "time": "21:20" }
+      ]
+    }
   ]
 }
